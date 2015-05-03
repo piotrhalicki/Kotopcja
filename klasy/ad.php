@@ -8,7 +8,7 @@ class Ad {
 	public $adFrom;
 	public $adContents;
 	public $adPicturePath;
-	public $adLocation;
+	public $adLocationId;
 	public $adDate;
 	
 	public static function conn($conn)
@@ -21,6 +21,8 @@ class Ad {
 		$this->adTitle = "";
 		$this->adFrom = "";
 		$this->adContents = "";
+		$this->adPicturePath = "";
+		$this->adLocationId = "";
 		$this->adDate = "";
 	}
 	
@@ -69,14 +71,14 @@ class Ad {
 		return $this->adPicturePath;
 	}
 	
-	public function set_adLocation($adLocation)
+	public function set_adLocationId($adLocationId)
 	{
-		$this->adLocation = $adLocation;
+		$this->adLocationId = $adLocationId;
 	}
 	
-	public function get_adLocation()
+	public function get_adLocationId()
 	{
-		return $this->adLocation;
+		return $this->adLocationId;
 	}
 		
 	public function set_adDate($adDate)
@@ -89,18 +91,50 @@ class Ad {
 		return $this->adDate;
 	}
 	
-	public function createAd($adTitle, $adFrom, $adContents, $adDate)
+	public function createAd($adTitle, $adFrom, $adContents, $adPicturePath, $adLocationId, $adDate)
 	{
 		$this->adTitle = $adTitle;
 		$this->adFrom = $adFrom;
 		$this->adContents = $adContents;
+		$this->adPicturePath = $adPicturePath;
+		$this->adLocationId = $adLocationId;
 		$this->adDate = $adDate;
 		
-		$sqlQuery = "INSERT INTO Ads('ad_title', 'ad_from', 'ad_contents', 'ad_date') 
-					VALUES('$this->adTitle', '$this->adFrom', '$this->adContents', '$this->adDate')";
+		$sqlQuery = "INSERT INTO Ads('ad_title', 'ad_from', 
+					'ad_contents', 'ad_picture_path', 
+					'ad_location_id', 'ad_date') 
+					VALUES('$this->adTitle', '$this->adFrom', 
+					'$this->adContents', '$this->adPicturePath', 
+					'$this->adLocationId', $this->adDate')";
 		
 		$result = Ad::$conn->query($sqlQuery);
 	}
+	
+	public function showAd()
+	{
+ 		$sqlQuery = "SELECT * FROM Ads 
+ 					JOIN Users 
+ 					ON Ads.ad_from=Users.user_id 
+ 					JOIN Locations 
+ 					ON Ads.ad_location_id=Locations.location_id";
+
+ 		$result = Ad::$conn->query($sqlQuery);
+	}
+
+	public function update()
+	{
+// 		$sqlQuery = "";
+
+// 		$result = Ad::$conn->query($sqlQuery);		
+	}
+	
+	public function deleteAd()
+	{
+// 		$sqlQuery = 
+		
+// 		$result = Ad::$conn->query($sqlQuery);
+	}
+	
 }
 
 ?>

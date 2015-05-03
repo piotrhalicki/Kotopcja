@@ -68,14 +68,30 @@ class Message {
 	}
 	
 	
-	public function createMessage()
+	public function createMessage($messageFrom, $messageTo, $messageContents, $messageDate)
 	{
+		$this->messageFrom = $messageFrom; 
+		$this->messageTo = $messageTo;
+		$this->messageContents = $messageContents;
+		$this->messageDate = $messageDate;
+		
+		$sqlQuery = "INSERT INTO Messages(message_from, message_to, 
+					message_contents, message_date) 
+					VALUES('$this->messageFrom', '$this->messageTo', 
+					'$this->$messageContents', '$this->$messageDate')";
 	
+		$result = Message::$conn->query($sqlQuery);
 	}
 	
 	public function showMessage()
 	{
-	
+ 		$sqlQuery = "SELECT * FROM Messages 
+ 					JOIN Users U1 
+ 					ON Messages.message_from=U1.user_id 
+ 					JOIN Users U2 
+ 					ON Messages.message_to=U2.user_id";
+
+		$result = Message::$conn->query($sqlQuery);
 	}
 }
 

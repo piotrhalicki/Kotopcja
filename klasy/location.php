@@ -43,24 +43,66 @@ class Location {
 		return $this->locationCity;
 	}
 	
-	public function showLocationCityByProvince($locationProvince)
+	public function showLocationCityByProvince($locationProvince) // miasta według województwa
 	{
+		$sqlQuery = "SELECT location_city 
+					FROM Locations 
+					WHERE location_province='$locationProvince'";
 		
+		$result = Location::$conn->query($sqlQuery);
+		
+		if ($result->num_rows > 0){
+			$row = $result->fetch_assoc();
+			$this->locationId = $row['location_id'];
+			$this->locationProvince = $row['location_province'];
+			$this->locationCity = $row['location_city'];
+		}
 	}
 	
-	public function showLocationProvinceByCity($locationCity)
+	public function showLocationProvinceByCity($locationCity) // województwo według miasta
 	{
+		$sqlQuery = "SELECT location_province 
+					FROM Locations 
+					WHERE location_city='$locationCity'";
 		
+		$result = Location::$conn->query($sqlQuery);
+		
+		if ($result->num_rows > 0){
+			$row = $result->fetch_assoc();
+			$this->locationId = $row['location_id'];
+			$this->locationProvince = $row['location_province'];
+			$this->locationCity = $row['location_city'];
+		}
 	}
 	
-	public function showLocationAllProvinces()
+	public function showLocationAllProvinces()	// wszystkie województwa, bez duplikatów
 	{
+		$sqlQuery = "SELECT DISTINCT location_province 
+					FROM Locations";
 		
+		$result = Location::$conn->query($sqlQuery);
+		
+		if ($result->num_rows > 0){
+			$row = $result->fetch_assoc();
+			$this->locationId = $row['location_id'];
+			$this->locationProvince = $row['location_province'];
+			$this->locationCity = $row['location_city'];
+		}
 	}
 	
-	public function showLocationAllCities()
+	public function showLocationAllCities() // wszystkie miasta
 	{
+		$sqlQuery = "SELECT location_city 
+					FROM Locations";
 		
+		$result = Location::$conn->query($sqlQuery);
+		
+		if ($result->num_rows > 0){
+			$row = $result->fetch_assoc();
+			$this->locationId = $row['location_id'];
+			$this->locationProvince = $row['location_province'];
+			$this->locationCity = $row['location_city'];
+		}
 	}
 	
 }

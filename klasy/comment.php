@@ -67,14 +67,30 @@ class Comment {
 		return $this->commentDate;
 	}
 	
-	public function createComment()
+	public function createComment($commentFrom, $commentAdId, $commentContents, $commentDate)
 	{
+		$this->commentFrom = $commentFrom;
+		$this->commentAdId = $commentAdId;
+		$this->commentContents = $commentContents;
+		$this->commentDate = $commentDate;
 		
+		$sqlQuery = "INSERT INTO Comments(comment_from, comment_ad_id, 
+					comment_contents, comment_date) 
+					VALUES('$this->commentFrom', '$this->commentAdId', 
+					'$this->commentContents', '$this->commentDate')";
+		
+		$result = Comment::$conn->query($sqlQuery);
 	}
 	
 	public function showComment()
 	{
-		
+ 		$sqlQuery = "SELECT * FROM Comments 
+ 					JOIN Users 
+ 					ON Comments.comment_from=Users.user_id 
+ 					JOIN Ads 
+ 					ON Comments.comment_ad_id=Ads.ad_id";
+
+		$result = Comment::$conn->query($sqlQuery);
 	}
 }
 

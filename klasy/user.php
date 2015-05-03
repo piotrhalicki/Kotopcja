@@ -168,6 +168,7 @@ class User {
 	{
 		$sqlQuery = "SELECT * FROM Users 
 					WHERE user_id=$userId";
+		
 		$result = User::$conn->query($sqlQuery);
 
 		if ($result->num_rows > 0) {
@@ -189,6 +190,7 @@ class User {
 	{
 		$sqlQuery = "DELETE FROM Users 
 					WHERE user_id=$userId";
+		
 		$result = User::$conn->query($sqlQuery);
 	}
 	
@@ -203,5 +205,7 @@ class User {
 		user_postal='$userPostal', 
 		user_telephone_number='$userTelephoneNumber' 
 		WHERE user_id =$userId";
+		
+		$result = User::$conn->query($sqlQuery);
 	}
 }

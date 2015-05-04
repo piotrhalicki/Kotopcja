@@ -17,9 +17,9 @@
 <!-- 	<dd> -->
 		<?php 
 // 		echo ("<strong>Podgląd sesji: </strong>");
-// 		echo "<pre>";
-// 		echo var_dump($_SESSION);
-// 		echo "</pre>";
+	echo "<pre>";
+	echo var_dump($_SESSION);
+	echo "</pre>";
 // 		?>
 <!-- 	</dd> -->
 <!-- </dl> -->

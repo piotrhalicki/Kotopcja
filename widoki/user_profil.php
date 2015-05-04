@@ -3,9 +3,55 @@
 $newUser = new User;
 $newUser->showUser($_SESSION['userId']);
 
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+	if(isset($_POST['adAd'])) {
+
+		echo "<br><br><br><pre>";
+		echo var_dump($_FILES);
+		echo "</pre>";
+		echo "<pre>";
+		echo var_dump($_POST);
+		echo "</pre>";
+
+		$adTitle = $_POST['adTitle'];
+		$adFrom = $_SESSION['userId'];
+		$adContents = $_POST['adContents'];
+		$adPicturePath = "";
+		$adLocationId = "";
+		$adDate = date('Y-m-d H:i:s');
+		
+	//	$newAd = new Ad;
+	//	$newAd->createAd($adTitle, $adFrom, $adContents, $adPicturePath, $adLocationId, $adDate);
+		
+
+		if ($_FILES['ladowaniePliku']['type'] !== 'image/jpeg') {
+			die("BŁĄD!!!");
+		}
+
+		$nazwaPliku = basename($_FILES['ladowaniePliku']['name']);
+
+		$uploaddir = $_SESSION['loggedUserLogin'];
+
+		if(!file_exists($uploaddir)){
+			mkdir($uploaddir);
+		}
+
+		$uploadfile = $uploaddir.'/'.$nazwaPliku;
+
+		if(!move_uploaded_file($_FILES['ladowaniePliku']['tmp_name'], $uploadfile)) {
+			echo "upload pliku - error :(";
+		} else {
+			echo "upload pliku - ok :)";
+		}
+
+	}
+}
+
 ?>
-<h4 style="text-align: center">&lt;<strong>Twój profil</strong>&gt;</h4>
-<div style="text-align: center">
+<div style="text-align: center" style="margin-top: 100px;">
+<h4 style="margin-top: 100px;">&lt;<strong>Twój profil</strong>&gt;</h4>
+
 <form method='POST' action='#'>
 <fieldset>
 	<strong>Imię: </strong> <?php echo $newUser->get_userFirstName(); ?> <br>
@@ -24,39 +70,50 @@ $newUser->showUser($_SESSION['userId']);
 </div>
 <br>
 
+<!-- DODAWANIE OGŁOSZENIA -->
+
 	<h4 style="text-align: center">&lt;<strong>Dodaj ogłoszenie</strong>&gt;</h4>
 <div style="text-align: center">
-<form method='POST' action='#'>
+<form method='POST' action='#' enctype="multipart/form-data">
 <fieldset><br>
-	<label>Tytuł:<br>
+	<label>Tytuł:</label><br>
 	<input type='text' name='adTitle' placeholder='tytuł ogłoszenia'><br>
-	</label>
-	<label>Treść:<br>
-	<textarea name='post' cols="50" rows="10" placeholder="treść ogłoszenia"></textarea><br>
-	</label>
-	<label>Lokalizacja:<br>
-	</label>
-	
-	<label>Województwo: <br>
-	<select name='wojewodztwo'>
-	<option value='0'>--wybierz województwo--</option>
-	<option value='mazowieckie'>mazowieckie</option>
-	</select>
-	</label><br>
-	
-	<label>Miasto: <br>
-	<select name='miasto'>
-	<option value='0'>--wybierz miasto--</option>
-	<option value='Warszawa'>Warszawa</option>
-	</select>
-	</label>
-	
+
+	<label>Treść:</label><br>
+	<textarea name='adContents' cols="50" rows="10" placeholder="treść ogłoszenia"></textarea><br>
 	<br>
 	
-	<label>Załaduj zdjęcie:<br>
-	(ładowanie zdjęcia - soon...)<br>
-	</label>
-	<button type='submit'>Dodaj ogłoszenie</button><br><br>
+	<label>Lokalizacja:</label><br>
+	
+	<div class="">
+		<label class='wojewodztwo'>Województwo:</label>
+		<select id="selectProvince" name='wojewodztwo'>
+		<option value='0'>--wybierz województwo--</option>
+		<?php 
+			$newLocation = new Location(); 
+			$newLocation->showLocationAllProvinces();
+		?>
+		</select>
+	</div>
+	
+	<div class="selectCity" style="display: none;">
+		<label class='miasto'>Miasto:</label>
+		<select id="selectCity" name='miasto'>
+		<option value='0'>--wybierz miasto--</option>
+		</select>
+	</div>
+	<br>
+	
+		
+	<label style="text-align: center">Załaduj zdjęcie:</label><br>
+		<div style="text-align:center;">
+		<input type="file" name="ladowaniePliku" id="ladowaniePliku">
+		</div>
+		<br>
+	
+
+	<button type='submit' name='adAd' value='adAd'>Dodaj ogłoszenie</button><br><br>
+	
 </fieldset>
 </form>
 </div>

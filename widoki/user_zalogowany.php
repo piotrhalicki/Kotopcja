@@ -1,6 +1,6 @@
 <?php
 
-echo ("<h1>Witaj ".ucfirst($_SESSION['loggedUserLogin'])."</h1><br>");
+echo ("<h1>Witaj ".ucfirst($_SESSION['userFirstName'])."</h1><br>");
 
 header("Refresh: 5; url=/kotopcja/")
 

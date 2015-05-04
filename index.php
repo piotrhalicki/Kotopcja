@@ -5,14 +5,14 @@ include('connect.php');
 // require('klasy/ad.php');
 // require('klasy/admin.php');
 // require('klasy/comment.php');
-// require('klasy/location.php');
+require('klasy/location.php');
 // require('klasy/message.php');
 require('klasy/user.php');
 
 // Ad::conn($conn);
 // Admin::conn($conn);
 // Comment::conn($conn);
-// Location::conn($conn);
+Location::conn($conn);
 // Message::conn($conn);
 User::conn($conn);
 ?>
@@ -38,7 +38,7 @@ if (!isset($_SESSION['loggedUserLogin'])) {
 //$router->map('GET|POST', '/', 'main.php');
 $router->map('GET|POST', '/logowanie', './formularze/user_logowanie.php');
 $router->map('GET|POST', '/rejestracja', './formularze/user_rejestracja.php');
-// //$router->map('GET|POST', '/connect', './funkcje/connect.php');
+// // $router->map('GET|POST', '/connect', './funkcje/connect.php');
 // // $router->map('GET|POST', '/header', '.widoki/header.php');
 // // $router->map('GET|POST', '/footer', '.widoki/footer.php');
 $router->map('GET|POST', '/zarejestrowany', './widoki/user_zarejestrowany.php');
@@ -61,30 +61,30 @@ require('header.php');
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                        Start Bootstrap
+                        Województwa
                     </a>
                 </li>
-                <li>
-                    <a href="#">Dashboard</a>
-                </li>
-                <li>
-                    <a href="#">Shortcuts</a>
-                </li>
-                <li>
-                    <a href="#">Overview</a>
-                </li>
-                <li>
-                    <a href="#">Events</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
+<!--                 <li> -->
+<!--                     <a href="#">Dashboard</a> -->
+<!--                 </li> -->
+<!--                 <li> -->
+<!--                     <a href="#">Shortcuts</a> -->
+<!--                 </li> -->
+<!--                 <li> -->
+<!--                     <a href="#">Overview</a> -->
+<!--                 </li> -->
+<!--                 <li> -->
+<!--                     <a href="#">Events</a> -->
+<!--                 </li> -->
+<!--                 <li> -->
+<!--                     <a href="#">About</a> -->
+<!--                 </li> -->
+<!--                 <li> -->
+<!--                     <a href="#">Services</a> -->
+<!--                 </li> -->
+<!--                 <li> -->
+<!--                     <a href="#">Contact</a> -->
+<!--                 </li> -->
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -93,7 +93,15 @@ require('header.php');
 if ($match) {
 	require $match['target'];
 };
+?>
 
+<script>
+$("#menu-toggle").click(function(e) {
+	e.preventDefault();
+	$("#wrapper").toggleClass("toggled");
+})
+</script>
+<?php 
 require('footer.php');
 ?>
 <body>

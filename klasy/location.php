@@ -52,10 +52,9 @@ class Location {
 		$result = Location::$conn->query($sqlQuery);
 		
 		if ($result->num_rows > 0){
-			$row = $result->fetch_assoc();
-			$this->locationId = $row['location_id'];
-			$this->locationProvince = $row['location_province'];
-			$this->locationCity = $row['location_city'];
+			while ($row = $result->fetch_assoc()){
+				echo ("<option value=".$row['location_city'].">".$row['location_city']."</option>");
+			}
 		}
 	}
 	
@@ -83,10 +82,9 @@ class Location {
 		$result = Location::$conn->query($sqlQuery);
 		
 		if ($result->num_rows > 0){
-			$row = $result->fetch_assoc();
-			$this->locationId = $row['location_id'];
-			$this->locationProvince = $row['location_province'];
-			$this->locationCity = $row['location_city'];
+			while ($row = $result->fetch_assoc()){
+				echo ("<option class='woj_select' value=".$row['location_province'].">".$row['location_province']."</option><br>");
+			}
 		}
 	}
 	

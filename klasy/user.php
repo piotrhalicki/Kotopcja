@@ -156,6 +156,7 @@ class User {
 		if ($result->num_rows > 0) {
 			$row = $result->fetch_assoc();
 			$this->userId = $row['user_id'];
+			$this->userFirstName = $row['user_first_name'];
 			$this->userLogin = $row['user_login'];
 			$hashed_pass = $row['user_password'];
 			if(password_verify($userPassword, $hashed_pass)){

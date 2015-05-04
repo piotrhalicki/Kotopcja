@@ -11,12 +11,13 @@ window.onload = function(){
 	})();
 }
 
-$("#menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
+$(document).ready(function() {
+    $("#selectProvince").change(function() {
+        $(".selectCity").show('slow');
+        var woj = $('#selectProvince').val();
+        $.get("/ajax/miasta.php?woj=" + woj, function( data ) {
+        	  $("#selectCity").html( data );
+        	  console.log(data);
+        	});
+    });
 });
-
-//$(document).ready(function() {
-//    $("#menu-toggle").click(function() {
-//        $("#wrapper").toggle("slow");
-//    });

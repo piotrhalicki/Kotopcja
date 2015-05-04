@@ -4,6 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$newUser = new User;
 	if ($newUser->logUser($_POST['userLogin'], $_POST['userPassword']) === true) {
 		$_SESSION['userId'] = $newUser->get_userId();
+		$_SESSION['userFirstName'] = $newUser->get_userFirstName();
 		$_SESSION['loggedUserLogin'] = $newUser->get_userLogin();
 		header('location: /kotopcja/zalogowany');
 	} else {
@@ -14,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <div style="text-align: center">
-<form method='POST' action='#'>
+<form method='POST' action='#' style="margin-top: 100px;">
 <fieldset>
 <legend><b>Logowanie</b></legend><br>
 <label>Podaj login:<br>

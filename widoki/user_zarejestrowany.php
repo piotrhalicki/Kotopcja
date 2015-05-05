@@ -6,6 +6,8 @@ header("Refresh: 5; url=/kotopcja/logowanie")
 
 ?>
 
-<p style="text-align: center">
+<div style="text-align: center">
+<p style="margin-top: 100px;">
 Do przekierowania na stronę logowania pozostało: <span id="odliczanie">5</span><br>
 </p>
+</div>

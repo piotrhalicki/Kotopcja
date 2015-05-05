@@ -2,14 +2,14 @@
 session_start();
 include('connect.php');
 
-// require('klasy/ad.php');
+require('klasy/ad.php');
 // require('klasy/admin.php');
 // require('klasy/comment.php');
 require('klasy/location.php');
 // require('klasy/message.php');
 require('klasy/user.php');
 
-// Ad::conn($conn);
+Ad::conn($conn);
 // Admin::conn($conn);
 // Comment::conn($conn);
 Location::conn($conn);
@@ -55,15 +55,15 @@ require('header.php');
 // var_dump($match);
 // echo ("</pre>");
 ?>
-<div id="wrapper">
+<!-- <div id="wrapper"> -->
 <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Województwa
-                    </a>
-                </li>
+<!--         <div id="sidebar-wrapper"> -->
+<!--             <ul class="sidebar-nav"> -->
+<!--                 <li class="sidebar-brand"> -->
+<!--                     <a href="#"> -->
+<!--                         Województwa -->
+<!--                     </a> -->
+<!--                 </li> -->
 <!--                 <li> -->
 <!--                     <a href="#">Dashboard</a> -->
 <!--                 </li> -->
@@ -85,10 +85,10 @@ require('header.php');
 <!--                 <li> -->
 <!--                     <a href="#">Contact</a> -->
 <!--                 </li> -->
-            </ul>
-        </div>
+<!--             </ul> -->
+<!--         </div> -->
         <!-- /#sidebar-wrapper -->
-        </div>
+<!--         </div> -->
 <?php 
 if ($match) {
 	require $match['target'];

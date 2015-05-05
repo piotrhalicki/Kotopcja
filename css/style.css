@@ -18,6 +18,9 @@ body {
   background-color: #000000;
 }
 
+pre {
+	background-color: yellow;	
+}
 
 .container {
   width: auto;
@@ -43,6 +46,28 @@ fieldset {
 	margin: 0 auto;
 }
 
+
+.thumbnail {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0px;
+}
+.thumbnail img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+
+}
 
 
 
@@ -108,7 +133,7 @@ fieldset {
     margin-right: -250px;
 }
 
-/* Sidebar Styles */
+/* SIDEBAR */
 
 .sidebar-nav {
 
@@ -157,48 +182,46 @@ fieldset {
 }
 
 @media(min-width:768px) {
-    #wrapper {
-        padding-left: 250px;
-    }
-
-    #wrapper.toggled {
-        padding-left: 0;
-    }
-
-    #sidebar-wrapper {
-        width: 250px;
-    }
-
-    #wrapper.toggled #sidebar-wrapper {
-        width: 0;
-    }
-
-    #page-content-wrapper {
-        padding: 20px;
-        position: relative;
-    }
-
-    #wrapper.toggled #page-content-wrapper {
-        position: relative;
-        margin-right: 0;
-    }
+#wrapper {
+    padding-left: 250px;
 }
 
+#wrapper.toggled {
+    padding-left: 0;
+}
 
+#sidebar-wrapper {
+    width: 250px;
+}
 
+#wrapper.toggled #sidebar-wrapper {
+    width: 0;
+}
+
+#page-content-wrapper {
+    padding: 20px;
+    position: relative;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: relative;
+    margin-right: 0;
+}
+
+/* INPUT FILE */
 
 .input-file { 
 	position: relative; margin: 300px 300px 0 
-	} /* Remove margin, it is just for stackoverflow viewing */
+} /* Remove margin */
 
 .input-file .input-group-addon { 
 	border: 0px; 
 	padding: 0px; 
-	}
+}
 
 .input-file .input-group-addon .btn { 
 	border-radius: 0 4px 4px 0 
-	}
+}
 
 .input-file .input-group-addon input { 
 	cursor: pointer; 
@@ -210,4 +233,4 @@ fieldset {
 	opacity:0; 
 	background-color:transparent; 
 	color:transparent; 
-	}
+}

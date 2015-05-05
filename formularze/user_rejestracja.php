@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <div style="text-align: center">
-<form method='POST' action='#'>
+<form method='POST' action='#' style="margin-top: 100px;">
 <fieldset>
 <legend><strong>Rejestracja</strong></legend><br>
 <label>Imię:<br>

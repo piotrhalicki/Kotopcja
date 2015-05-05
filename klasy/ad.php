@@ -24,6 +24,7 @@ class Ad {
 		$this->adPicturePath = "";
 		$this->adLocationId = "";
 		$this->adDate = "";
+//		$this->userLogin = "";
 	}
 	
 	public function get_adId()
@@ -100,27 +101,65 @@ class Ad {
 		$this->adLocationId = $adLocationId;
 		$this->adDate = $adDate;
 		
-		$sqlQuery = "INSERT INTO Ads('ad_title', 'ad_from', 
-					'ad_contents', 'ad_picture_path', 
-					'ad_location_id', 'ad_date') 
+		$sqlQuery = "INSERT INTO Ads(ad_title, ad_from, 
+					ad_contents, ad_picture_path, 
+					ad_location_id, ad_date) 
 					VALUES('$this->adTitle', '$this->adFrom', 
 					'$this->adContents', '$this->adPicturePath', 
-					'$this->adLocationId', $this->adDate')";
-		
+					'$this->adLocationId', '$this->adDate')";
+		var_dump($sqlQuery);
 		$result = Ad::$conn->query($sqlQuery);
 	}
 	
-	public function showAd()
+	public function showAdByUserId($userId)
 	{
  		$sqlQuery = "SELECT * FROM Ads 
  					JOIN Users 
  					ON Ads.ad_from=Users.user_id 
  					JOIN Locations 
- 					ON Ads.ad_location_id=Locations.location_id";
-
+ 					ON Ads.ad_location_id=Locations.location_id WHERE user_id=$userId";
+//  		echo "<pre>";
+//  		var_dump($sqlQuery);
+//  		echo "</pre>";
  		$result = Ad::$conn->query($sqlQuery);
+
+ 		if ($result->num_rows > 0) {
+ 			$tmp = array();
+ 			while ($row = $result->fetch_assoc()){
+	 			$tmp[] = $row;
+	 			//echo "<pre>";
+	 			//echo var_dump($tmp);
+	 			//echo "</pre>";
+ 			}
+ 			return $tmp;
+ 		}
+ 		return null;
 	}
 
+	public function showAllAds()
+	{
+		$sqlQuery = "SELECT * FROM Ads
+					JOIN Users
+					ON Ads.ad_from=Users.user_id
+					JOIN Locations
+					ON Ads.ad_location_id=Locations.location_id 
+					ORDER BY ad_date DESC";
+
+			$result = Ad::$conn->query($sqlQuery);
+		
+			if ($result->num_rows > 0) {
+			$tmp = array();
+			while ($row = $result->fetch_assoc()){
+			$tmp[] = $row;
+			//echo "<pre>";
+				//echo var_dump($tmp);
+				//echo "</pre>";
+			}
+			return $tmp;
+		}
+		return null;
+	}
+	
 	public function update()
 	{
 // 		$sqlQuery = "";

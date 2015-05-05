@@ -38,14 +38,14 @@ class Location {
 		$this->locationCity = $locationCity;
 	}
 	
-	public function get_()
+	public function get_locationCity()
 	{
 		return $this->locationCity;
 	}
 	
 	public function showLocationCityByProvince($locationProvince) // miasta według województwa
 	{
-		$sqlQuery = "SELECT location_city 
+		$sqlQuery = "SELECT location_id, location_city 
 					FROM Locations 
 					WHERE location_province='$locationProvince'";
 		
@@ -53,7 +53,7 @@ class Location {
 		
 		if ($result->num_rows > 0){
 			while ($row = $result->fetch_assoc()){
-				echo ("<option value=".$row['location_city'].">".$row['location_city']."</option>");
+				echo ("<option value=".$row['location_id'].">".$row['location_city']."</option>");
 			}
 		}
 	}
@@ -102,6 +102,11 @@ class Location {
 			$this->locationCity = $row['location_city'];
 		}
 	}
+	
+// 	public function get_locationIdByCity($locationCity)
+// 	{
+// 		return $this->Id;
+// 	}
 	
 }
 

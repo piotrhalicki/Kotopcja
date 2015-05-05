@@ -5,26 +5,19 @@ $newUser->showUser($_SESSION['userId']);
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	if(isset($_POST['adAd'])) {
+	if(isset($_POST['addAd'])) {
 
-		echo "<br><br><br><pre>";
-		echo var_dump($_FILES);
-		echo "</pre>";
-		echo "<pre>";
-		echo var_dump($_POST);
-		echo "</pre>";
+// 		echo "<br><br><br><pre>";
+// 		echo var_dump($_FILES);
+// 		echo "</pre>";
+// 		echo "<pre>";
+// 		echo var_dump($_POST);
+// 		echo "</pre>";
 
-		$adTitle = $_POST['adTitle'];
-		$adFrom = $_SESSION['userId'];
+ 		$adTitle = $_POST['adTitle'];
+ 		$adFrom = $_SESSION['userId'];
 		$adContents = $_POST['adContents'];
-		$adPicturePath = "";
-		$adLocationId = "";
-		$adDate = date('Y-m-d H:i:s');
-		
-	//	$newAd = new Ad;
-	//	$newAd->createAd($adTitle, $adFrom, $adContents, $adPicturePath, $adLocationId, $adDate);
-		
-
+				
 		if ($_FILES['ladowaniePliku']['type'] !== 'image/jpeg') {
 			die("BŁĄD!!!");
 		}
@@ -44,16 +37,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		} else {
 			echo "upload pliku - ok :)";
 		}
+		$adPicturePath = $uploaddir.'/'.$nazwaPliku;
+		$adLocationId = $_POST['miasto'];
+		$adDate = date('Y-m-d H:i:s');
+		
+		$newAd = new Ad;
+		$newAd->createAd($adTitle, $adFrom, $adContents, $adPicturePath, $adLocationId, $adDate);
 
 	}
+	
+
 }
+$newAd = new Ad;
+$advs = $newAd->showAdByUserId($_SESSION['userId']);
+// echo "<pre>";
+// echo var_dump($advs);
+// echo "</pre>";
+
+
+
+// array_walk_recursive($advs, function ($item, $key) {
+// 	echo ("<pre>$key => $item</pre>");
+// });
 
 ?>
 <div style="text-align: center" style="margin-top: 100px;">
 <h4 style="margin-top: 100px;">&lt;<strong>Twój profil</strong>&gt;</h4>
 
 <form method='POST' action='#'>
-<fieldset>
+<fieldset><br>
 	<strong>Imię: </strong> <?php echo $newUser->get_userFirstName(); ?> <br>
 	<strong>Nazwisko: </strong> <?php echo $newUser->get_userLastName(); ?> <br>
 	<strong>Login: </strong> <?php echo $newUser->get_userLogin(); ?> <br>
@@ -64,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	<strong>Numer telefonu: </strong> <?php echo $newUser->get_userTelephoneNumber(); ?> <br><br>
 
 <button type='submit'>Modyfikuj konto</button><br>
-<button type='submit'>Usuń konto</button><br>
+<button type='submit'>Usuń konto</button><br><br>
 </fieldset>
 </form>
 </div>
@@ -112,15 +124,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<br>
 	
 
-	<button type='submit' name='adAd' value='adAd'>Dodaj ogłoszenie</button><br><br>
+	<button type='submit' name='addAd'>Dodaj ogłoszenie</button><br><br>
 	
 </fieldset>
 </form>
 </div>
+<br>
+ 			
+<!--  			<strong>Ścieżka do zdjęcia: </strong><br><img src='/".$value['ad_picture_path']."'><br> -->
 
-<div style="text-align: center">
-<fieldset>
-<legend>&lt;<strong>Twoje ogłoszenia</strong>&gt;</legend>
-</fieldset>
-</div>
-
+<?php
+foreach($advs as $key => $value) {
+	echo 	("
+		<div style='text-align: center'>
+		<h4 style='text-align: center'>&lt;<strong>Twoje ogłoszenia</strong>&gt;</h4>
+		<fieldset><br>
+			<strong>Tytuł ogłoszenia: </strong>" .$value['ad_title']. "<br>
+			<strong>Autor ogłoszenia: </strong>" .$value['user_login']. "<br>
+			<strong>Treść ogłoszenia: </strong>" .$value['ad_contents']. "<br>
+			<strong>Zdjęcie: </strong><br>
+			<a href='#' class='thumbnail'><img src='/".$value['ad_picture_path']."'></a>
+			<strong>Data dodania: </strong>" .$value['ad_date']. "<br>
+			<strong>Ulica: </strong>" .$value['user_street']. "<br>
+			<strong>Kot pocztowy: </strong>" .$value['user_postal']. "<br>
+			<strong>Miasto: </strong>" .$value['location_city']. "<br>
+			<strong>Województwo: </strong>" .$value['location_province']. "<br>
+			<strong>Numer telefonu: </strong>" .$value['user_telephone_number']. "
+			<button type='submit'>Usuń ogłoszenie</button><br>
+			<br><br>
+			
+		</fieldset>
+		</div>
+		<br>
+			");
+}
+?>
